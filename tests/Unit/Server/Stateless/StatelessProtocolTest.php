@@ -11,11 +11,9 @@
 
 namespace Mcp\Tests\Unit\Server\Stateless;
 
-use Mcp\Event\ClientResponseEvent;
 use Mcp\Event\ErrorEvent;
 use Mcp\Event\RequestEvent;
 use Mcp\Event\ResponseEvent;
-use Mcp\Event\ServerRequestEvent;
 use Mcp\Exception\MissingRequiredClientCapabilityException;
 use Mcp\Schema\ClientCapabilities;
 use Mcp\Schema\Content\TextContent;
@@ -1377,7 +1375,7 @@ class StatelessProtocolTest extends TestCase
         $this->assertInstanceOf(RequestEvent::class, $captured[0]);
         $this->assertInstanceOf(ResponseEvent::class, $captured[1]);
         $this->assertInstanceOf(InputRequiredResult::class, $captured[1]->getResponse()->result);
-        $this->assertSame([], array_filter($captured, static fn (object $event): bool => $event instanceof ServerRequestEvent || $event instanceof ClientResponseEvent));
+        $this->assertCount(2, $captured);
     }
 
     #[TestDox('an explicit InputRequiredResult is observed as ResponseEvent')]
@@ -1436,7 +1434,7 @@ class StatelessProtocolTest extends TestCase
         $this->assertTrue($input->has('elicitation_1'));
         $this->assertInstanceOf(ResponseEvent::class, $captured[1]);
         $this->assertInstanceOf(CallToolResult::class, $captured[1]->getResponse()->result);
-        $this->assertSame([], array_filter($captured, static fn (object $event): bool => $event instanceof ServerRequestEvent || $event instanceof ClientResponseEvent));
+        $this->assertCount(2, $captured);
     }
 
     #[TestDox('ErrorEvent is dispatched when a handler throws')]
