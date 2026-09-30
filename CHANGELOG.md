@@ -2,6 +2,13 @@
 
 All notable changes to `mcp/sdk` will be documented in this file.
 
+0.8.1-patch1 (artack/mcp_php-sdk)
+-----------------
+
+* Dispatch `RequestEvent`, `ResponseEvent` and `ErrorEvent` on the modern era (`2026-07-28`) as on the
+  handshake era: `StatelessProtocol` takes the builder's event dispatcher. The stateless part of
+  modelcontextprotocol/php-sdk#386, on top of 0.8.1; dropped again once upstream releases it.
+
 0.8.0
 -----
 
